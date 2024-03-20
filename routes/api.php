@@ -53,7 +53,9 @@ Route::middleware([CorsMiddleware::class])->group(function () {
     Route::post('/Game', [GameController::class, 'create']);
     Route::delete('/delet/{id}', [GameController::class, 'deleteGame']);
     Route::post('/Comment', [CommentsController::class, 'createComment']);
-    Route::put('/update-profile', [AuthController::class, 'updateProfile']);
+    Route::post('/update-profile', [AuthController::class, 'updateProfile']);
+
+
     Route::get('/user-data', [AuthController::class, 'user']);
 
 
