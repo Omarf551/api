@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/User', [UserController::class, 'list']);
 Route::get('/User/{id}', [UserController::class, 'id']);
 Route::post('/User', [UserController::class, 'create']);
-Route::post('/User', [UserController::class, 'update']);
+Route::put('/User', [UserController::class, 'update']);
 
 
 //Auth
@@ -53,10 +53,9 @@ Route::middleware([CorsMiddleware::class])->group(function () {
     Route::post('/Game', [GameController::class, 'create']);
     Route::delete('/delet/{id}', [GameController::class, 'deleteGame']);
     Route::post('/Comment', [CommentsController::class, 'createComment']);
-    Route::post('/update-profile', [AuthController::class, 'updateProfile']);
+    Route::post('/update', [AuthController::class, 'update']);
 
 
-    Route::get('/user-data', [AuthController::class, 'user']);
 
 
     

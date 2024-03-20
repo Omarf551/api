@@ -39,21 +39,46 @@ class UserController extends Controller
         return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
     }
 
+    
     public function update(Request $request)
     {
         $data = $request->validate([
-            'id' => 'required|integer|min:1',
-            'name' => 'required|min:3|max:30',
-            'email' => 'required|email|min:3|max:30',
+            'id' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
         ]);
 
-        $user = User::find($data['id']);
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+        if (!isset($data['id'])) {
+            $object = [
+                "response" => "Error: se requiere el campo 'id' para actualizar el registro.",
+            ];
+            return response()->json($object);
         }
 
-        $user->update($data);
+        $user = User::find($data['id']);
 
-        return response()->json(['message' => 'User updated successfully', 'data' => $user]);
+        if($user) {
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+
+            if ($user->save()) {
+                $object = [
+                    "response" => "Éxito: registro modificado correctamente.",
+                    "data" => $user,
+                ];
+                return response()->json($object);
+            } else {
+                $object = [
+                    "response" => "Error: algo salió mal, por favor inténtalo de nuevo.",
+                ];
+                return response()->json($object);
+            }
+        } else {
+            $object = [
+                "response" => "Error: registro no encontrado.",
+            ];
+            return response()->json($object);
+        }
     }
+
 }

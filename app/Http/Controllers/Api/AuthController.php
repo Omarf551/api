@@ -77,25 +77,7 @@ class AuthController extends Controller
     }
 
 
-    public function updateProfile(Request $request)
-    {
-        $user = auth()->user(); // Obtener el usuario autenticado
-        
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
-    
-        $validatedData = $request->validate([
-            'name' => 'required|max:55',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-        ]);
-    
-        $user->update($validatedData);
-    
-        return response()->json(['message' => 'User profile updated successfully']);
-    }
-    
-
+   
 public function getUserData(Request $request)
 {
     $user = $request->user();
